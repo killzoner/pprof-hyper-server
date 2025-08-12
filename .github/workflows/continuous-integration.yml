@@ -22,7 +22,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-build-${{ github.event.pull_request.number || github.ref }}-${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
@@ -33,7 +33,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-lint-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with: 
           toolchain: stable
@@ -50,7 +50,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-test-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
       - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
@@ -62,7 +62,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-fmt-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with: 
           toolchain: stable
@@ -81,7 +81,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-cargo-deny-checks-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with: 
           toolchain: stable
