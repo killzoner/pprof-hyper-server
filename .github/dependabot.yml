@@ -1,0 +1,27 @@
+---
+updates:
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Paris"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Paris"
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "10:00"
+      timezone: "Europe/Paris"
+    ignore:
+        # These are peer deps of Cargo and should not be automatically bumped
+        - dependency-name: "semver"
+        - dependency-name: "crates-io"
+    open-pull-requests-limit: 99
+
+version: 2
