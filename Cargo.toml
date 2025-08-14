@@ -3,7 +3,7 @@ authors = ["killzoner"]
 edition = "2024"
 name = "pprof_hyper_server"
 resolver = "3"
-version = "0.1.0"
+version = "0.1.1"
 
 description = "A minimal pprof server implementation using hyper without runtime dependency"
 documentation = "https://docs.rs/pprof_hyper_server"
