@@ -14,6 +14,12 @@ For more details, see:
 
 You most likely need a linux-ish machine for it to work (current msvc is not supported for both cpu and memory profiling).
 
+### Cargo features
+
+* `pprof_cpu` enables HTTP endpoint for CPU profiling.
+* `pprof_heap` enables HTTP endpoint for heap profiling.
+* `pprof` enables `pprof_cpu` and `pprof_heap`.
+
 ## Basic API usage with pprof client
 
 Install [pprof](https://github.com/google/pprof) client or use the one from Golang toolchain.

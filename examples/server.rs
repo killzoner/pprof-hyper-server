@@ -42,8 +42,10 @@ struct Cli {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    // allocate some memory
-    allocate_memory();
+    // allocate some memory and use the result (compiler could remove completely the unused code / allocation otherwise)
+    let v = allocate_memory();
+
+    println!("{:?}", v.len());
 
     // create a CPU intensive task
     let t1: JoinHandle<_> = task::spawn(async move {
@@ -70,12 +72,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+#[inline(never)]
 // from https://github.com/polarsignals/rust-jemalloc-pprof/examples
-fn allocate_memory() {
+fn allocate_memory() -> Vec<i32> {
     let mut v = vec![];
-    for i in 0..1000000 {
-        v.push(i);
+    for i in 0..3000000 {
+        v.push(i); // ~16MB
     }
+
+    v
 }
 
 // from https://github.com/tikv/pprof-rs/blob/master/examples
