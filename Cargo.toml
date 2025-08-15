@@ -15,7 +15,7 @@ repository = "https://github.com/killzoner/pprof-hyper-server"
 anyhow = { version = "1.0.99", default-features = false }
 async-channel = { version = "2.5.0", default-features = false }
 async-io = { version = "2.5.0", default-features = false }
-async-trait = { version = "0.1.88", default-features = false }
+async-trait = { version = "0.1.89", default-features = false }
 form_urlencoded = { version = "1.2.1", default-features = false, features = [
   "alloc",
 ] }
