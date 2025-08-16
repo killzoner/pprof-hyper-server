@@ -8,7 +8,6 @@
 use anyhow::Result;
 use async_channel::bounded;
 use async_io::Async;
-use async_trait::async_trait;
 use futures_lite::future;
 use http_body_util::Full;
 use hyper::{
@@ -45,19 +44,12 @@ mod pprof_cpu {
     pub const PPROF_DEFAULT_SAMPLING: i32 = 99;
 }
 
-#[async_trait]
-trait ServerHandle {
-    async fn handle_client(self) -> Result<()>;
-    async fn serve(&self, req: Request<Incoming>) -> Result<Response<Full<Bytes>>>;
-}
-
 struct Task<'a> {
     client: Async<TcpStream>,
     config: Arc<Config<'a>>,
 }
 
-#[async_trait]
-impl ServerHandle for Task<'_> {
+impl Task<'_> {
     /// Handle a new client.
     async fn handle_client(self) -> Result<()> {
         hyper::server::conn::http1::Builder::new()

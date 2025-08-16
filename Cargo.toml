@@ -3,7 +3,7 @@ authors = ["killzoner"]
 edition = "2024"
 name = "pprof_hyper_server"
 resolver = "3"
-version = "0.1.1"
+version = "0.1.2"
 
 description = "A minimal pprof server implementation using hyper without runtime dependency"
 documentation = "https://docs.rs/pprof_hyper_server"
@@ -15,7 +15,6 @@ repository = "https://github.com/killzoner/pprof-hyper-server"
 anyhow = { version = "1.0.99", default-features = false }
 async-channel = { version = "2.5.0", default-features = false }
 async-io = { version = "2.5.0", default-features = false }
-async-trait = { version = "0.1.88", default-features = false }
 form_urlencoded = { version = "1.2.1", default-features = false, features = [
   "alloc",
 ] }
@@ -41,7 +40,7 @@ tikv-jemallocator = { version = "0.6.0", default-features = false, optional = tr
 ] }
 
 [dev-dependencies]
-clap = { version = "4.5.44", default-features = true, features = [
+clap = { version = "4.5.45", default-features = true, features = [
   "derive",
   "env",
 ] }
