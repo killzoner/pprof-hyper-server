@@ -28,6 +28,7 @@ const NOT_FOUND: &[u8] = "Not Found".as_bytes();
 
 /// Config allows customizing global pprof config.
 #[derive(Default, Clone, Debug)]
+#[allow(dead_code)]
 pub struct Config<'a> {
     /// Defaults to pprof_cpu::PPROF_BLOCKLIST.
     pub pprof_blocklist: Option<&'a [&'a str]>,
@@ -46,6 +47,7 @@ mod pprof_cpu {
 
 struct Task<'a> {
     client: Async<TcpStream>,
+    #[allow(dead_code)]
     config: Arc<Config<'a>>,
 }
 
