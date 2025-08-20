@@ -130,7 +130,7 @@ impl Task<'_> {
         match prof_ctl {
             None => Err(anyhow::anyhow!("heap profiling not activated")),
             Some(prof_ctl) => {
-                let mut prof_ctl = prof_ctl.lock().await;
+                let mut prof_ctl = prof_ctl.try_lock()?;
 
                 if !prof_ctl.activated() {
                     return Err(anyhow::anyhow!("heap profiling not activated"));
