@@ -40,7 +40,7 @@ tikv-jemallocator = { version = "0.6.0", default-features = false, optional = tr
 ] }
 
 [dev-dependencies]
-clap = { version = "4.5.45", default-features = true, features = [
+clap = { version = "4.5.46", default-features = true, features = [
   "derive",
   "env",
 ] }
