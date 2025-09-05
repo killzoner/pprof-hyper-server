@@ -7,8 +7,8 @@
 
 use anyhow::Result;
 use async_channel::bounded;
+use async_executor::Executor;
 use async_io::Async;
-use futures_lite::future;
 use http_body_util::Full;
 use hyper::{
     Method, Request, Response, StatusCode, Uri,
@@ -102,7 +102,6 @@ impl Task<'_> {
         );
 
         let blocklist = self.config.pprof_blocklist.unwrap_or(PPROF_BLOCKLIST);
-
         let guard = ProfilerGuardBuilder::default()
             .frequency(profile_sampling)
             .blocklist(blocklist)
@@ -183,14 +182,29 @@ pub async fn serve<'a>(bind_address: SocketAddr, config: Config<'a>) -> Result<(
     let listener = Async::<TcpListener>::bind(bind_address)?;
     let (s, r) = bounded::<Task>(MAX_CONCURRENT_REQUESTS);
     let config = Arc::new(config);
+    let ex = Arc::new(Executor::new());
 
-    loop {
-        // stack max MAX_CONCURRENT_REQUESTS requests, prefering stacking than answering to them.
-        // if we cannot stack anymore, drop the connection and other pending requests.
-        // we don't need a multi threaded server to serve pprof server, but don't want it to be a source of DDOS.
-        future::or(
-            async {
-                // Wait for a new client.
+    ex.spawn({
+        let ex = ex.clone();
+        async move {
+            loop {
+                if let Ok(task) = r.recv().await {
+                    ex.spawn(async {
+                        task.handle_client().await.unwrap_or_default();
+                    })
+                    .detach();
+                }
+            }
+        }
+    })
+    .detach();
+
+    ex.run({
+        async move {
+            // stack max MAX_CONCURRENT_REQUESTS requests
+            // if we cannot add more tasks, drop the connection
+            // we don't need a multi threaded server to serve pprof server, but don't want it to be a source of DOS.
+            loop {
                 let listener = listener.accept().await;
                 if let Ok((client, _)) = listener {
                     let task = Task {
@@ -201,13 +215,10 @@ pub async fn serve<'a>(bind_address: SocketAddr, config: Config<'a>) -> Result<(
                     // we ignore the potential error as it would mean we should drop the connection if channel is full.
                     let _ = s.try_send(task);
                 }
-            },
-            async {
-                if let Ok(task) = r.recv().await {
-                    task.handle_client().await.unwrap_or_default();
-                }
-            },
-        )
-        .await;
-    }
+            }
+        }
+    })
+    .await;
+
+    Ok(())
 }
