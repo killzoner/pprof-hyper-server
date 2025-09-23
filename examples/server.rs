@@ -92,7 +92,7 @@ fn is_prime_number(v: usize, prime_numbers: &[usize]) -> bool {
     }
 
     for n in prime_numbers {
-        if v % n == 0 {
+        if v.is_multiple_of(*n) {
             return false;
         }
     }
