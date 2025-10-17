@@ -26,7 +26,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-      - run: cargo build
+      - run: cargo build --all --all-targets --all-features
   lint:
     runs-on: ubuntu-latest
     concurrency:
