@@ -44,6 +44,13 @@ clap = { version = "4.5.49", default-features = true, features = [
   "derive",
   "env",
 ] }
+tokio = { version = "1.48.0", default-features = false, features = [
+  "macros",
+  "rt-multi-thread",
+  "time",
+] }
+
+[target.'cfg(not(target_env = "msvc"))'.dev-dependencies]
 tikv-jemalloc-sys = { version = "0.6.1", default-features = false }
 tikv-jemallocator = { version = "0.6.1", features = [
   # https://github.com/tikv/jemallocator/blob/master/jemalloc-sys/README.md#features
@@ -56,10 +63,6 @@ tikv-jemallocator = { version = "0.6.1", features = [
   # override the system allocator even outside Rust code.
   # https://github.com/tikv/jemallocator/blob/0.6.1/jemalloc-sys/README.md?plain=1#L91.
   "override_allocator_on_supported_platforms",
-] }
-tokio = { version = "1.48.0", default-features = false, features = [
-  "macros",
-  "rt-multi-thread",
 ] }
 
 [features]
