@@ -34,7 +34,7 @@ pprof = { version = "0.15.0", default-features = false, optional = true, feature
   "cpp",
   "prost-codec",
 ] }
-tikv-jemallocator = { version = "0.6.0", default-features = false, optional = true, features = [
+tikv-jemallocator = { version = "0.6.1", default-features = false, optional = true, features = [
   "profiling",
   "unprefixed_malloc_on_supported_platforms",
 ] }
@@ -60,7 +60,7 @@ features = [
   "unprefixed_malloc_on_supported_platforms",
   "profiling",
 ]
-version = "0.6.0"
+version = "0.6.1"
 
 [features]
 default = ["pprof"]
