@@ -934,6 +934,7 @@ dependencies = [
  "jemalloc_pprof",
  "pprof",
  "smol-hyper",
+ "tikv-jemalloc-sys",
  "tikv-jemallocator",
  "tokio",
 ]

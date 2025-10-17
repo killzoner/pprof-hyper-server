@@ -12,6 +12,11 @@ use tokio::{
 #[global_allocator]
 static ALLOC: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
 
+// Override the system allocator even outside Rust code.
+// See https://github.com/tikv/jemallocator/blob/0.6.1/jemalloc-sys/README.md?plain=1#L91.
+#[cfg(not(target_env = "msvc"))]
+use tikv_jemalloc_sys as _;
+
 /// Global jemalloc allocator config for memory profiling.
 /// Define this at the root of your app.
 #[allow(non_upper_case_globals)]
