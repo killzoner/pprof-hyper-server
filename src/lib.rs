@@ -81,7 +81,9 @@ impl Task<'_> {
     async fn cpu_profile(&self, req: Request<Incoming>) -> Result<Response<Full<Bytes>>> {
         use crate::pprof_cpu::*;
         use async_io::Timer;
+        use flate2::write::GzEncoder;
         use pprof::{ProfilerGuardBuilder, protos::Message};
+        use std::io::Write;
         use std::time::Duration;
 
         let params = get_params(req.uri());
@@ -114,7 +116,11 @@ impl Task<'_> {
         let mut content = Vec::new();
         profile.encode(&mut content)?;
 
-        Ok(Response::new(Full::new(Bytes::from(content))))
+        let mut gz = GzEncoder::new(Vec::new(), flate2::Compression::default());
+        gz.write_all(&content)?;
+        let compressed = gz.finish()?;
+
+        Ok(Response::new(Full::new(Bytes::from(compressed))))
     }
 
     #[cfg(any(not(feature = "pprof_cpu"), target_env = "msvc"))]
