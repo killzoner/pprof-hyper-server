@@ -41,8 +41,9 @@ jobs:
       - run: cargo clippy --all --all-targets --all-features -- -D warnings
       - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
-          tool: cargo-machete
+          tool: cargo-machete,cargo-neat
       - run: cargo machete
+      - run: cargo neat -f
   test:
     if: false # no test so far
     runs-on: ubuntu-latest
@@ -70,11 +71,36 @@ jobs:
       - run: cargo fmt --all
       - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
-          tool: taplo-cli@0.9.3
+          tool: taplo-cli
       - name: Run cargo sort
         run : taplo format
       - name: Check for a diff
         run: git diff --exit-code
+  doc:
+    runs-on: ubuntu-latest
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.workflow }}-doc-${{ github.event.pull_request.number || github.ref }}
+    env:
+      RUSTDOCFLAGS: -D warnings
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+      - run: cargo doc --no-deps --all-features
+  feature-check:
+    runs-on: ubuntu-latest
+    concurrency:
+      cancel-in-progress: true
+      group: ${{ github.workflow }}-feature-check-${{ github.event.pull_request.number || github.ref }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+        with:
+          tool: cargo-hack
+      - run: cargo hack check --feature-powerset --no-dev-deps
   cargo-deny-checks:
     runs-on: ubuntu-latest
     concurrency:
