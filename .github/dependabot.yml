@@ -12,6 +12,11 @@ updates:
       interval: "daily"
       time: "10:00"
       timezone: "Europe/Paris"
+    cooldown:
+      default-days: 3
+      # Keeps the v2 tag resolvable, so refs are not rewritten to exact versions
+      exclude:
+        - "taiki-e/install-action"
   - package-ecosystem: "cargo"
     directory: "/"
     schedule:

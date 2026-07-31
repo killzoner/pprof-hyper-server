@@ -36,7 +36,7 @@ jobs:
         with: 
           components: clippy
       - run: cargo clippy --all --all-targets --all-features -- -D warnings
-      - uses: taiki-e/install-action@v2.85.3 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+      - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
           tool: cargo-machete,cargo-neat
       - run: cargo machete
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: taiki-e/install-action@v2.85.3 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+      - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
           tool: cargo-expand
       - run: cargo test
@@ -65,7 +65,7 @@ jobs:
         with: 
           components: rustfmt
       - run: cargo fmt --all
-      - uses: taiki-e/install-action@v2.85.3 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+      - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
           tool: taplo-cli
       - name: Run cargo sort
@@ -91,7 +91,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: taiki-e/install-action@v2.85.3 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+      - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
           tool: cargo-hack
       - run: cargo hack check --feature-powerset --no-dev-deps
@@ -103,7 +103,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: taiki-e/install-action@v2.85.3 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
+      - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
           tool: cargo-deny
       - name: cargo deny
