@@ -17,6 +17,11 @@ updates:
       # Keeps the v2 tag resolvable, so refs are not rewritten to exact versions
       exclude:
         - "taiki-e/install-action"
+    groups:
+      "all-deps":
+        applies-to: version-updates
+        patterns:
+          - "*"
   - package-ecosystem: "cargo"
     directory: "/"
     schedule:
