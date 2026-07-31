@@ -22,7 +22,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-build-${{ github.event.pull_request.number || github.ref }}-${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo build --all --all-targets --all-features
   lint:
@@ -31,7 +31,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-lint-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
         with: 
           components: clippy
@@ -48,7 +48,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-test-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
@@ -60,7 +60,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-fmt-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
         with: 
           components: rustfmt
@@ -80,7 +80,7 @@ jobs:
     env:
       RUSTDOCFLAGS: -D warnings
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo doc --no-deps --all-features
   feature-check:
@@ -89,7 +89,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-feature-check-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
@@ -101,7 +101,7 @@ jobs:
       cancel-in-progress: true
       group: ${{ github.workflow }}-cargo-deny-checks-${{ github.event.pull_request.number || github.ref }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - uses: taiki-e/install-action@v2 # don't use taiki-e/cache-cargo-install-action, compiled version already available (https://github.com/taiki-e/install-action/blob/main/TOOLS.md)
         with:
