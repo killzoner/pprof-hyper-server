@@ -30,7 +30,7 @@ hyper = { version = "1.10.1", default-features = false, features = [
 smol-hyper = { version = "0.1.1", default-features = false }
 
 [target.'cfg(not(target_env = "msvc"))'.dependencies]
-jemalloc_pprof = { version = "0.9.0", optional = true, features = [
+jemalloc_pprof = { version = "0.9.0", default-features = false, optional = true, features = [
   "symbolize",
 ] }
 pprof = { version = "0.15.0", default-features = false, optional = true, features = [
@@ -58,7 +58,7 @@ tokio = { version = "1.52.3", default-features = false, features = [
 
 [target.'cfg(not(target_env = "msvc"))'.dev-dependencies]
 tikv-jemalloc-sys = { version = "0.7.1", default-features = false }
-tikv-jemallocator = { version = "0.7.0", features = [
+tikv-jemallocator = { version = "0.7.0", default-features = false, features = [
   # https://github.com/tikv/jemallocator/blob/master/jemalloc-sys/README.md#features
   # https://github.com/jemalloc/jemalloc/blob/dev/TUNING.md
   "background_threads_runtime_support",
